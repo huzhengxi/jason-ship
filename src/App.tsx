@@ -2,6 +2,7 @@ import React from 'react';
 import Button from './components/button';
 import {ButtonSize, ButtonType} from './components/button/button';
 import Menu from './components/menu';
+import MenuItem from "./components/menu/menuItem";
 
 function App() {
   return (
@@ -10,9 +11,16 @@ function App() {
       {/*<Button disabled>Disabled Button</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Small}>Primary</Button>*/}
-      <Menu>
-        <p>1</p>
-        <h2>h2</h2>
+      <Menu defaultIndex={0}>
+        <MenuItem>
+          cool link
+        </MenuItem>
+        <MenuItem>
+          cool link1
+        </MenuItem>
+        <MenuItem>
+          cool link2
+        </MenuItem>
       </Menu>
     </div>
   );
