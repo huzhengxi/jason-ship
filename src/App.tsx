@@ -11,7 +11,7 @@ function App() {
       {/*<Button disabled>Disabled Button</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Small}>Primary</Button>*/}
-      <Menu defaultIndex={0} onSelect={index => alert(`click ${index}`)}>
+      <Menu defaultIndex={0} >
         <MenuItem index={0}>
           cool link
         </MenuItem>

@@ -33,10 +33,10 @@ const Menu: React.FC<PropsWithChildren<MenuProps>> = (props) => {
     index: currentActive ?? 0,
     onSelect: handleClick
   };
-  const classes = classNames('json-menu', className, {
+  const classes = classNames('jason-menu', className, {
     'menu-vertical': mode === 'vertical'
   });
-  return <ul className={classes} style={style}>
+  return <ul className={classes} style={style} data-testid={'test-menu'}>
     <MenuContext.Provider value={contextProvider}>
       {children}
     </MenuContext.Provider>
