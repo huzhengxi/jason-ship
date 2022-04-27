@@ -2,7 +2,7 @@ import React from 'react';
 import Button from './components/button';
 import {ButtonSize, ButtonType} from './components/button/button';
 import Menu from './components/menu';
-import MenuItem from "./components/menu/menuItem";
+import MenuItem from './components/menu/menuItem';
 
 function App() {
   return (
@@ -11,14 +11,14 @@ function App() {
       {/*<Button disabled>Disabled Button</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Small}>Primary</Button>*/}
-      <Menu defaultIndex={0}>
-        <MenuItem>
+      <Menu defaultIndex={0} onSelect={index => alert(`click ${index}`)}>
+        <MenuItem index={0}>
           cool link
         </MenuItem>
-        <MenuItem>
+        <MenuItem disabled index={1}>
           cool link1
         </MenuItem>
-        <MenuItem>
+        <MenuItem index={2}>
           cool link2
         </MenuItem>
       </Menu>
