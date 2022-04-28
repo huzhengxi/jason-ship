@@ -11,14 +11,14 @@ function App() {
       {/*<Button disabled>Disabled Button</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Small}>Primary</Button>*/}
-      <Menu defaultIndex={0} >
-        <MenuItem index={0}>
+      <Menu defaultIndex={0}>
+        <MenuItem>
           cool link
         </MenuItem>
-        <MenuItem disabled index={1}>
+        <MenuItem disabled>
           cool link1
         </MenuItem>
-        <MenuItem index={2}>
+        <MenuItem>
           cool link2
         </MenuItem>
       </Menu>

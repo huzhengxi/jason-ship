@@ -3,6 +3,7 @@
  */
 import React, {createContext, PropsWithChildren, useState} from 'react';
 import classNames from 'classnames';
+import MenuItem, {MenuItemProps} from "./menuItem";
 
 type MenuMode = 'horizontal' | 'vertical'
 type SelectCallback = (selectedIndex: number) => void
@@ -33,12 +34,25 @@ const Menu: React.FC<PropsWithChildren<MenuProps>> = (props) => {
     index: currentActive ?? 0,
     onSelect: handleClick
   };
+
+  const renderChildren = () => {
+    return React.Children.map(children, (child, index) => {
+      const childElement = child as React.FunctionComponentElement<MenuItemProps>
+      const {displayName} = childElement.type
+      if (displayName === 'MenuItem') {
+        return React.cloneElement(childElement, {index})
+      } else {
+        return console.error('Warning: Menu has a child whitch is not MenuItem component')
+      }
+    })
+  }
+
   const classes = classNames('jason-menu', className, {
     'menu-vertical': mode === 'vertical'
   });
   return <ul className={classes} style={style} data-testid={'test-menu'}>
     <MenuContext.Provider value={contextProvider}>
-      {children}
+      {renderChildren()}
     </MenuContext.Provider>
   </ul>;
 };
