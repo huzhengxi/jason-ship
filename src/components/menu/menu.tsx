@@ -1,37 +1,38 @@
 /**
  * Created by jason on 2022/4/26.
  */
-import React, {createContext, PropsWithChildren, useState} from 'react';
+import React from 'react';
+import {createContext, PropsWithChildren, useState} from 'react';
 import classNames from 'classnames';
 import MenuItem, {MenuItemProps} from "./menuItem";
 
 type MenuMode = 'horizontal' | 'vertical'
-type SelectCallback = (selectedIndex: number) => void
+type SelectCallback = (selectedIndex: string) => void
 
 export interface MenuProps {
-  defaultIndex?: number;
+  defaultIndex?: string;
   className?: string;
   mode?: MenuMode;
   style?: React.CSSProperties;
-  onSelect?: (selectedIndex: number) => void;
+  onSelect?: (selectedIndex: string) => void;
 }
 
 interface IMenuContext {
-  index: number;
+  index: string;
   onSelect?: SelectCallback;
 }
 
-export const MenuContext = createContext<IMenuContext>({index: 0});
+export const MenuContext = createContext<IMenuContext>({index: '0'});
 
 const Menu: React.FC<PropsWithChildren<MenuProps>> = (props) => {
   const {defaultIndex, className, mode, style, onSelect, children} = props;
   const [currentActive, setCurrentActive] = useState(defaultIndex);
-  const handleClick = (index: number) => {
+  const handleClick = (index: string) => {
     setCurrentActive(index);
     onSelect?.(index);
   };
   const contextProvider: IMenuContext = {
-    index: currentActive ?? 0,
+    index: currentActive ?? '0',
     onSelect: handleClick
   };
 
@@ -39,10 +40,10 @@ const Menu: React.FC<PropsWithChildren<MenuProps>> = (props) => {
     return React.Children.map(children, (child, index) => {
       const childElement = child as React.FunctionComponentElement<MenuItemProps>
       const {displayName} = childElement.type
-      if (displayName === 'MenuItem') {
-        return React.cloneElement(childElement, {index})
+      if (displayName === 'MenuItem' || displayName === 'SubMenu') {
+        return React.cloneElement(childElement, {index: `${index}`})
       } else {
-        return console.error('Warning: Menu has a child whitch is not MenuItem component')
+        console.error('Warning: Menu has a child whitch is not MenuItem component')
       }
     })
   }
@@ -58,7 +59,7 @@ const Menu: React.FC<PropsWithChildren<MenuProps>> = (props) => {
 };
 
 Menu.defaultProps = {
-  defaultIndex: 0,
+  defaultIndex: '0',
   mode: 'horizontal'
 };
 
