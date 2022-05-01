@@ -12,7 +12,12 @@ function App() {
       {/*<Button disabled>Disabled Button</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Large}>Primary</Button>*/}
       {/*<Button btnType={ButtonType.Primary} size={ButtonSize.Small}>Primary</Button>*/}
-      <Menu defaultIndex={'0'} >
+      <Menu
+        defaultIndex={'0'}
+        mode={'vertical'}
+        onSelect={(selectedIndex)=> alert(`${selectedIndex}`) }
+        defaultOpenSubmenus={['2 ']}
+      >
         <MenuItem>
           cool link
         </MenuItem>
