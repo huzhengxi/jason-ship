@@ -25,6 +25,10 @@
   }
   .submenu-item {
     position: relative;
+    .submenu-title {
+      display: flex;
+      align-items: center;
+    }
   }
   .jason-submenu {
     display: none;

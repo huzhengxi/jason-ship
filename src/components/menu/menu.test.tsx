@@ -7,9 +7,7 @@ import {MenuProps} from './menu';
 import Menu from './index';
 import MenuItem from './menuItem';
 import {cleanup, fireEvent, render, RenderResult, screen} from '@testing-library/react';
-import menuItem from './menuItem';
-import {exec} from 'child_process';
-import {clear} from '@testing-library/user-event/dist/clear';
+import SubMenu from "./subMenu";
 
 const testProps: MenuProps = {
   defaultIndex: '0',
@@ -34,27 +32,50 @@ const generateMenu = (props: MenuProps) => {
       <MenuItem>
         xyz
       </MenuItem>
+      <SubMenu title="dropdown">
+        <MenuItem>
+          drop1
+        </MenuItem>
+      </SubMenu>
+      <SubMenu title="opened">
+        <MenuItem>
+          opened1
+        </MenuItem>
+      </SubMenu>
     </Menu>
   );
 };
 
-let menuElement: HTMLElement, activeElement: HTMLElement, disabledElement: HTMLElement;
+
+const createStyleFile = () => {
+  const cssFile: string = `
+    .jason-submenu {
+      display: none;
+    }
+    .jason-submenu.menu-opened {
+      display: block;
+    }
+  `
+  const style = document.createElement('style')
+  style.innerHTML = cssFile
+  return style
+}
+
+let wrapper: RenderResult, menuElement: HTMLElement, activeElement: HTMLElement, disabledElement: HTMLElement;
 const setup = () => {
-  render(generateMenu(testProps));
+  wrapper = render(generateMenu(testProps));
+  wrapper.container.append(createStyleFile())
   menuElement = screen.getByTestId('test-menu');
   activeElement = screen.getByText('active');
   disabledElement = screen.getByText('disabled');
 };
 describe('test Menu and MenuItem component', () => {
   //每个case开始之前都会跑的一段代码
-  beforeEach(() => {
-    setup();
-  });
+  beforeEach(setup);
   it('should render correct Menu and MenuItem based on default props', () => {
     expect(menuElement).toBeInTheDocument();
     expect(menuElement).toHaveClass('jason-menu test');
-    // eslint-disable-next-line testing-library/no-node-access
-    expect(menuElement.getElementsByTagName<'li'>('li').length).toBe(3);
+    expect(menuElement.querySelectorAll(':scope > li').length).toBe(5)
     expect(activeElement).toHaveClass('menu-item is-active');
     expect(disabledElement).toHaveClass('menu-item is-disabled');
   });
@@ -64,10 +85,16 @@ describe('test Menu and MenuItem component', () => {
     fireEvent.click(thirdItem);
     expect(thirdItem).toHaveClass('is-active');
     expect(activeElement).not.toHaveClass('is-active');
-    expect(testProps.onSelect).toHaveBeenCalledWith(2);
+    expect(testProps.onSelect).toHaveBeenCalledWith('2');
     fireEvent.click(disabledElement);
     expect(disabledElement).not.toHaveClass('is-active');
-    expect(testProps.onSelect).not.toHaveBeenCalledWith(1);
+    expect(testProps.onSelect).not.toHaveBeenCalledWith('1');
+  });
+
+  it('should show dropdown items when hover on subMenu',  ()=> {
+    console.log(wrapper.container)
+    expect(wrapper.queryByText('drop1')).toBeVisible()
+
   });
 
   it('should render vertical mode when is set to vertical', () => {
