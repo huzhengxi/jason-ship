@@ -18,7 +18,7 @@
     }
   }
 }
-.icon-wrapper+.jason-input-inner {
+.icon-wrapper.jason-input-inner {
   padding-right: 35px;
 }
 .jason-input-inner {
@@ -82,12 +82,12 @@
 }
 .input-group > .jason-input-group-prepend,
 .input-group.input-group-append > .jason-input-inner {
-  @include border-right-radius(0);
+  //@include border-right-radius(0);
 }
 
 .input-group > .jason-input-group-append,
 .input-group.input-group-prepend > .jason-input-inner {
-  @include border-left-radius(0);
+  //@include border-left-radius(0);
 }
 
 .input-size-sm .jason-input-inner {
