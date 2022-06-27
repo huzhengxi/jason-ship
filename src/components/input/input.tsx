@@ -25,7 +25,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
    * Input 数据变化回调
    * @param e 回调参数
    */
-  onChange?: (e: ChangeEvent<HTMLElement>) => void;
+    onChange?: (e: ChangeEvent<HTMLElement>) => void;
 }
 
 /**

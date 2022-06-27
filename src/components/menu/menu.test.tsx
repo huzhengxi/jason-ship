@@ -6,9 +6,8 @@ import React from 'react';
 import {MenuProps} from './menu';
 import Menu from './index';
 import MenuItem from './menuItem';
-import {cleanup, fireEvent, render, RenderResult, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, RenderResult, screen, waitFor} from '@testing-library/react';
 import SubMenu from "./subMenu";
-import {wait} from "@testing-library/user-event/dist/utils";
 
 const testProps: MenuProps = {
   defaultIndex: '0',
